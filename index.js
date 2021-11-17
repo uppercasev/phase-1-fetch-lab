@@ -26,11 +26,10 @@ async function findNthCharacter(nth) {
 }
 
 function totalPages(books) {
-  //get value of numberOfPages of each book and put into new array using .map() method
-  const pagesArray = books.map((book) => book.numberOfPages);
-  //use .reduce() method to add all numbers together
-  const reducerFunction = (previousValue, currentValue) => previousValue + currentValue;
-  const sumPages = pagesArray.reduce(reducerFunction);
+  let sumPages = 0;
+  books.forEach((book) => {
+    sumPages = sumPages + book.numberOfPages;
+  })
   console.log(`The total number of pages in this series is ${sumPages}.`);
 }
 
