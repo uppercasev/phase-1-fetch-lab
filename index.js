@@ -1,8 +1,8 @@
 //Below code uses async/await, which will meet deliverables, but will not pass test, as they are based on using .then() method.
+
 async function fetchBooks() {
   const response = await fetch('https://anapioficeandfire.com/api/books');
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
@@ -15,15 +15,16 @@ function renderBooks(books) {
   });
 }
 
-//Below suggested deliverables from Canvas module:
-//1. Find the 5th book in the series
 function findNthBook(books, nth) {
   console.log(`Book number ${nth} of the series is called "${books[nth - 1].name}".`);
 }
 
-// 2. Find the 1031st character in the series
+async function findNthCharacter(nth) {
+  const response  = await fetch(`https://anapioficeandfire.com/api/characters/${nth}`);
+  const characterData = await response.json();
+  console.log(`Character number ${nth} in the series is named "${characterData.name}".`);
+}
 
-// 3. Find the total number of pages of all the books
 function totalPages(books) {
   //get value of numberOfPages of each book and put into new array using .map() method
   const pagesArray = books.map((book) => book.numberOfPages);
@@ -36,6 +37,11 @@ function totalPages(books) {
 document.addEventListener('DOMContentLoaded', async function() {
   const booksList = await fetchBooks();
   renderBooks(booksList);
+  //Below suggested deliverables from Canvas module:
+  //1. Find the 5th book in the series
   findNthBook(booksList, 5);
+  //2. Find the 1031st character in the series
+  await findNthCharacter(1031);
+  //3. Find the total number of pages of all the books
   totalPages(booksList);
 });
